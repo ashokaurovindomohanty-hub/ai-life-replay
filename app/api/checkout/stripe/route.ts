@@ -1,5 +1,6 @@
+if(!stripe) return Response.json({error:"Stripe not configured"}, {status:500});
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET!);
+const stripe = process.env.STRIPE_SECRET ? new Stripe(process.env.STRIPE_SECRET) : null as any;
 export async function POST(req:Request){
   const {currency="inr"} = await req.json();
   const prices:any={inr:79900,usd:999,eur:999}; // in cents/paise
