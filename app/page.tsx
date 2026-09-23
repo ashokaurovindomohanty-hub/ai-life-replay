@@ -16,22 +16,42 @@ export default function Home(){
     if(navigator.share) navigator.share({title:"My Memory",text:result.story});
     else navigator.clipboard.writeText(result.story);
   };
-  return(
-    <main className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold">AI Life Replay</h1>
-      <textarea value={text} onChange={e=>setText(e.target.value)} placeholder="My 10th birthday party..." className="w-full h-32 border p-3 rounded mt-4" />
-      <button onClick={generate} className="bg-black text-white px-6 py-3 rounded mt-4 w-full">Generate Memory Movie</button>
-      {result && (
-        <div className="mt-6 p-4 border rounded bg-gray-50">
-          <h2 className="font-bold">Your Movie:</h2>
-          <p className="mt-2">{result.story}</p>
-          <video controls className="w-full mt-4 rounded" poster="https://via.placeholder.com/640x360?text=Your+Memory">
-            <source src={result.videoUrl || ""} type="video/mp4" />
+  const handleStripePay = async () => {
+  const res = await fetch("/api/checkout/stripe", { method: "POST" });
+  const data = await res.json();
+  if (data.url) window.location.href = data.url;
+  else alert(data.error || "Stripe error");
+  };
+  return (
+  <main className="p-6 max-w-xl mx-auto">
+    <h1 className="text-2xl font-bold">AI Life Replay</h1>
+    <textarea
+      value={text}
+      onChange={e => setText(e.target.value)}
+      className="w-full border p-2 mt-4 rounded"
+      placeholder="Share Memory"
+    />
+    <button onClick={generate} className="bg-black text-white mt-4 px-4 py-2 rounded">
+      Generate Memory Movie
+    </button>
+    <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
+      Pay with Stripe to Unlock HD Movie
+    </button>
+    {result && (
+      <div className="mt-6 p-4 border rounded bg-white">
+        <h2 className="font-bold">Your Movie:</h2>
+        <p className="mt-2">{result.story}</p>
+        {result.videoUrl ? (
+          <video controls className="w-full mt-4 rounded">
+            <source src={result.videoUrl} type="video/mp4" />
           </video>
-          <button onClick={share} className="bg-blue-600 text-white px-4 py-2 rounded mt-3 w-full">Share Memory</button>
-          <p className="text-sm text-green-600 mt-2">{result.message}</p>
-        </div>
-      )}
-    </main>
-  );
+        ) : null}
+        <button onClick={share} className="bg-black text-white mt-4 px-4 py-2 rounded">
+          Share Memory
+        </button>
+        <p className="text-sm text-green-600 mt-2">Memory movie created (free mode)</p>
+      </div>
+    )}
+  </main>
+);
 }
