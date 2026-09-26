@@ -2,12 +2,13 @@
 import { useState } from "react";
 export default function Home(){
   const [text,setText]=useState("");
+  const [mood, setMood] = useState('nostalgic')
   const [result,setResult]=useState<any>(null);
   const generate=async()=>{
     const res=await fetch("/api/generate",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({memory:text})
+      body:JSON.stringify({memory:text, mood})
     });
     const data=await res.json();
     setResult(data);
@@ -23,17 +24,16 @@ export default function Home(){
   else alert(data.error || "Stripe error");
   };
   return (
-  <main className="p-6 max-w-xl mx-auto">
-    <h1 className="text-2xl font-bold">AI Life Replay</h1>
-    <textarea
-      value={text}
-      onChange={e => setText(e.target.value)}
-      className="w-full border p-2 mt-4 rounded"
-      placeholder="Share Memory"
-    />
-    <button onClick={generate} className="bg-black text-white mt-4 px-4 py-2 rounded">
-      Generate Memory Movie
-    </button>
+<div className="min-h-screen bg-gradient-to-b from-slate-950 to-black text-white flex flex-col items-center p-8">
+  <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Life Replay ✨</h1>
+  <p className="mt-3 opacity-70">Turn memories into cinematic movies</p>
+    <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-black" />
+    <div className="flex gap-3 mt-4">
+      <button className="px-4 py-2 rounded-full bg-white/20">Nostalgic</button>
+      <button className="px-4 py-2 rounded-full bg-blue-600">Joyful</button>
+      <button className="px-4 py-2 rounded-full bg-white/20">Epic</button>
+    </div>
+    <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold">Generate Memory Movie 🎬</button>
     <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
       Pay with Stripe to Unlock HD Movie
     </button>
@@ -49,9 +49,10 @@ export default function Home(){
         <button onClick={share} className="bg-black text-white mt-4 px-4 py-2 rounded">
           Share Memory
         </button>
+        <button onClick={()=> window.open(result.videoUrl || '#')} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
         <p className="text-sm text-green-600 mt-2">Memory movie created (free mode)</p>
       </div>
     )}
-  </main>
+  </div>
 );
 }
