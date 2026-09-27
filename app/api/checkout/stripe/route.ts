@@ -8,8 +8,8 @@ export async function POST(req:Request){
  const session = await stripe.checkout.sessions.create({
   line_items:[{price_data:{ currency,product_data:{name:"AI Life Replay Pro"}, unit_amount:prices[currency]},quantity:1}],
   mode:"payment",
-  success_url:"http://localhost:3000/success",
-  cancel_url:"http://localhost:3000/cancel"
+  success_url:"https://bipdeep.com/success?hd=true",
+  cancel_url:"https://bipdeep.com/cancel"
  });
  return Response.json({url:session.url});
 }
