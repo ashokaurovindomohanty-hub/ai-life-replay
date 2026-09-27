@@ -52,6 +52,9 @@ export default function Home(){
         <button onClick={()=> window.open(result.videoUrl || '#')} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
         <p className="text-sm text-green-600 mt-2">Memory movie created (free mode)</p>
       </div>
+<footer className="mt-12 text-sm text-slate-400">
+  © 2026 BipDeep — <a href="https://github.com/yourname/ai-life-replay/blob/main/LICENSE" className="underline">MIT Licensed</a>
+</footer>
     )}
   </div>
 );
