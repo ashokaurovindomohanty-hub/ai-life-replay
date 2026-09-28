@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 export default function Home(){
   const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [text,setText]=useState("");
   const [mood, setMood] = useState('nostalgic')
   const [result,setResult]=useState<any>(null);
@@ -34,18 +35,18 @@ export default function Home(){
       <button className="px-4 py-2 rounded-full bg-blue-600">Joyful</button>
       <button className="px-4 py-2 rounded-full bg-white/20">Epic</button>
     </div>
-<input type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
+<input ref={fileInputRef} type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
 {files.length > 0 && (
   <div className="mt-3">
     <div className="flex flex-wrap gap-2">
       {files.map((f,i)=>(
         <div key={i} className="relative">
           <img src={URL.createObjectURL(f)} className="w-20 h-20 object-cover rounded-lg border" />
-          <button onClick={()=>setFiles(files.filter((_,idx)=>idx!==i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs">✕</button>
+          <button onClick={()=>{ const n=files.filter((_,idx)=>idx!==i); setFiles(n); if(n.length===0 && fileInputRef.current) fileInputRef.current.value=""; }} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs">✕</button>
         </div>
       ))}
     </div>
-    <button onClick={()=>setFiles([])} className="mt-2 text-sm text-red-500 underline">Cancel / Clear all</button>
+    <button onClick={()=>{setFiles([]); if(fileInputRef.current) fileInputRef.current.value="";}} className="mt-2 text-sm text-red-500 underline">Cancel / Clear all</button>
   </div>
 )}
 <p className="text-xs text-slate-500">Add 3-5 photos - tap ✕ to remove, Clear all to cancel</p>
@@ -72,4 +73,5 @@ export default function Home(){
 <footer className="mt-12 text-sm text-slate-400 text-center"> © 2026 BipDeep — <a href="https://github.com/ashokaurovindomohanty-hub/ai-life-replay/blob/main/LICENSE" className="underline">MIT Licensed</a> </footer>
   </div>
 );
-}
+}`
+
