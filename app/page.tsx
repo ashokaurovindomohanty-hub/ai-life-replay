@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-const [files, setFiles] = useState<File[]>([]);
 export default function Home(){
+  const [files, setFiles] = useState<File[]>([]);
   const [text,setText]=useState("");
   const [mood, setMood] = useState('nostalgic')
   const [result,setResult]=useState<any>(null);
