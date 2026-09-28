@@ -27,7 +27,7 @@ export default function Home(){
 <div className="min-h-screen bg-gradient-to-b from-slate-950 to-black text-white flex flex-col items-center p-8">
   <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Life Replay ✨</h1>
   <p className="mt-3 opacity-70">Turn memories into cinematic movies</p>
-    <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-black" />
+    <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-white" />
     <div className="flex gap-3 mt-4">
       <button className="px-4 py-2 rounded-full bg-white/20">Nostalgic</button>
       <button className="px-4 py-2 rounded-full bg-blue-600">Joyful</button>
