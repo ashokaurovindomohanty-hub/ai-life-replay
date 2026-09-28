@@ -21,9 +21,6 @@ try {
 // Call ElevenLabs here with story + voiceId
   // 3. Use placeholder video for now - HD if paid
   const isHD = (await req.json().catch(()=>({})))?.hd; // but you already parsed body, so better:
-```
-**Simpler — full updated `app/api/generate/route.ts`:**
-```ts
 import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const { text, mood, memory, hd } = await req.json();
@@ -43,3 +40,4 @@ export async function POST(req: Request) {
   const video = hd ? "/memories/hd-placeholder.mp4" : "/memories/placeholder.mp4";
   return NextResponse.json({ success: true, story, video, message: hd ? "HD Movie created" : "Memory movie created (free mode)" });
 }
+
