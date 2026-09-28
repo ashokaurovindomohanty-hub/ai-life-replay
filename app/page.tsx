@@ -34,8 +34,21 @@ export default function Home(){
       <button className="px-4 py-2 rounded-full bg-blue-600">Joyful</button>
       <button className="px-4 py-2 rounded-full bg-white/20">Epic</button>
     </div>
-<input type="file" accept="image/*" multiple onChange={(e)=>setFiles(Array.from(e.target.files||[]))} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
-<p className="text-xs text-slate-500 mb-2">Add 3-5 photos from gallery (optional) - makes it personal ✨</p>
+<input type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
+{files.length > 0 && (
+  <div className="mt-3">
+    <div className="flex flex-wrap gap-2">
+      {files.map((f,i)=>(
+        <div key={i} className="relative">
+          <img src={URL.createObjectURL(f)} className="w-20 h-20 object-cover rounded-lg border" />
+          <button onClick={()=>setFiles(files.filter((_,idx)=>idx!==i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs">✕</button>
+        </div>
+      ))}
+    </div>
+    <button onClick={()=>setFiles([])} className="mt-2 text-sm text-red-500 underline">Cancel / Clear all</button>
+  </div>
+)}
+<p className="text-xs text-slate-500">Add 3-5 photos - tap ✕ to remove, Clear all to cancel</p>
     <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold">Generate Memory Movie 🎬</button>
     <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
       Pay with Stripe to Unlock HD Movie
