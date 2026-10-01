@@ -73,5 +73,4 @@ export default function Home(){
 <footer className="mt-12 text-sm text-slate-400 text-center"> © 2026 BipDeep — <a href="https://github.com/ashokaurovindomohanty-hub/ai-life-replay/blob/main/LICENSE" className="underline">MIT Licensed</a> </footer>
   </div>
 );
-}`
-
+}
