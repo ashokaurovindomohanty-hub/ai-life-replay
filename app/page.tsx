@@ -54,24 +54,28 @@ export default function Home(){
     <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
       Pay with Stripe to Unlock HD Movie
     </button>
-    {result && (
-      <div className="mt-6 p-4 border rounded bg-white">
-        <h2 className="font-bold">Your Movie:</h2>
-        <p className="mt-2">{result.story}</p>
-        {result.videoUrl ? (
-          <video controls className="w-full mt-4 rounded">
-            <source src={result.videoUrl} type="video/mp4" />
-          </video>
-        ) : null}
-        <button onClick={share} className="bg-black text-white mt-4 px-4 py-2 rounded">
-          Share Memory
-        </button>
-        <button onClick={()=>{
-          const a=document.createElement("a");
-          a.href=result.videoUrl;
-          a.download="memory-movie.mp4";
-          a.click();
-        }} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
+{result && (
+  <div>
+    <p className="mt-2">{result.story}</p>
+    {result.videoUrl && (
+      <video controls className="w-full mt-4 rounded">
+        <source src={result.videoUrl} type="video/mp4" />
+      </video>
+    )}
+{result.videoUrl && (
+  <button onClick={()=>{
+    const a=document.createElement("a");
+    a.href=result.videoUrl;
+    a.download="memory-movie.mp4";
+    a.click();
+  }} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
+)}
+      <button onClick={()=>{
+        const a=document.createElement("a");
+        a.href=result.videoUrl;
+        a.download="memory-movie.mp4";
+        a.click();
+      }} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
         <p className="text-sm text-green-600 mt-2">Memory movie created (free mode)</p>
       </div>
     )}
