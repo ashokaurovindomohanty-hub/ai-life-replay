@@ -50,7 +50,7 @@ export default function Home(){
   </div>
 )}
 <p className="text-xs text-slate-500">Add 3-5 photos - tap ✕ to remove, Clear all to cancel</p>
-    <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold">Generate Memory Movie 🎬</button>
+    <button onClick={generate} className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold">Generate Memory Movie 🎬</button>
     <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
       Pay with Stripe to Unlock HD Movie
     </button>
@@ -66,7 +66,12 @@ export default function Home(){
         <button onClick={share} className="bg-black text-white mt-4 px-4 py-2 rounded">
           Share Memory
         </button>
-        <button onClick={()=> window.open(result.videoUrl || '#')} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
+        <button onClick={()=>{
+          const a=document.createElement("a");
+          a.href=result.videoUrl;
+          a.download="memory-movie.mp4";
+          a.click();
+        }} className="bg-gray-800 text-white mt-2 px-4 py-2 rounded w-full">Download Movie</button>
         <p className="text-sm text-green-600 mt-2">Memory movie created (free mode)</p>
       </div>
     )}
