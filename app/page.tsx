@@ -31,9 +31,9 @@ export default function Home(){
   <p className="mt-3 opacity-70">Turn memories into cinematic movies</p>
     <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-white" />
     <div className="flex gap-3 mt-4">
-      <button className="px-4 py-2 rounded-full bg-white/20">Nostalgic</button>
-      <button className="px-4 py-2 rounded-full bg-blue-600">Joyful</button>
-      <button className="px-4 py-2 rounded-full bg-white/20">Epic</button>
+      <button onClick={() => setMood('nostalgic')} className={`px-4 py-2 rounded-full ${mood==='nostalgic' ? 'bg-blue-600' : 'bg-white/20'}`}>Nostalgic</button>
+      <button onClick={() => setMood('joyful')} className={`px-4 py-2 rounded-full ${mood==='joyful' ? 'bg-blue-600' : 'bg-white/20'}`}>Joyful</button>
+      <button onClick={() => setMood('epic')} className={`px-4 py-2 rounded-full ${mood==='epic' ? 'bg-blue-600' : 'bg-white/20'}`}>Epic</button>
     </div>
 <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
 {files.length > 0 && (
