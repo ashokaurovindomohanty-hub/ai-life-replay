@@ -1,3 +1,4 @@
+import { unlink } from 'fs/promises'
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 const getStripe = () => new Stripe(process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET!);
@@ -25,6 +26,8 @@ export async function POST(req: Request) {
     } else {
       story = `Cinematic version (${mood || "Nostalgic"}): ${input}`;
     }
+// auto-delete placeholder - remove if no temp file
+// try { await unlink(tempPath) } catch {}
     return NextResponse.json({ story, videoUrl, hd: isHD });
   } catch (e) {
     console.error(e);
