@@ -1,6 +1,17 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 export default function Home(){
+const [streak, setStreak] = useState(0);
+useEffect(()=>{
+  const s = parseInt(localStorage.getItem("streak")||"0");
+  setStreak(s);
+},[]);
+// call after generate success:
+const updateStreak = () => {
+  const n = streak+1;
+  setStreak(n);
+  localStorage.setItem("streak", String(n));
+};
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [text,setText]=useState("");
@@ -27,6 +38,7 @@ export default function Home(){
   };
   return (
 <div className="min-h-screen bg-gradient-to-b from-slate-950 to-black text-white flex flex-col items-center p-8">
+<div className="text-center text-sm font-semibold text-purple-600">🔥 {streak} Day Streak</div>
   <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Life Replay ✨</h1>
   <p className="mt-3 opacity-70">Turn memories into cinematic movies</p>
     <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-white" />
@@ -50,7 +62,16 @@ export default function Home(){
   </div>
 )}
 <p className="text-xs text-slate-500">Add 3-5 photos - tap ✕ to remove, Clear all to cancel</p>
-    <button onClick={generate} className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold">Generate Memory Movie 🎬</button>
+<button onClick={generate} className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-full font-bold text-white shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all disabled:opacity-50">
+  Generate Memory Movie 🎬
+</button>
+{result && (
+  <div className="mt-6 p-5 bg-white rounded-2xl shadow-md border border-slate-100 animate-in fade-in">
+    <h3 className="font-bold text-slate-800">Your Replay ✨</h3>
+    <p className="mt-2 text-sm text-slate-600 whitespace-pre-wrap">{result.story}</p>
+    <button onClick={share} className="mt-4 w-full bg-slate-900 text-white py-2 rounded-full text-sm">Share Story ↗</button>
+  </div>
+)}
     <button onClick={handleStripePay} className="bg-blue-600 text-white mt-2 px-4 py-2 rounded w-full">
       Pay with Stripe to Unlock HD Movie
     </button>
@@ -83,3 +104,4 @@ export default function Home(){
   </div>
 );
 }
+
