@@ -3,11 +3,13 @@ const stripe = process.env.STRIPE_SECRET ? new Stripe(process.env.STRIPE_SECRET)
 export async function POST(req:Request){
  if(!stripe) return Response.json({error:"Stripe not configured"}, {status:500});
  let currency = "inr";
- try { const body = await req.json(); currency = body.currency || "inr"; } catch {}
+ try { const body = await req.json();
+currency = body.currency || "inr";
+const memoryId = body.memoryId; } catch {}
  const prices:any={inr:79900,usd:999,eur:999};
  const session = await stripe.checkout.sessions.create({
   line_items:[{price_data:{ currency,product_data:{name:"AI Life Replay Pro"}, unit_amount:prices[currency]},quantity:1}],
-  mode:"payment",
+  mode:"payment", metadata: { memoryId },
   success_url:"https://bipdeep.com/success?hd=true",
   cancel_url:"https://bipdeep.com/cancel"
  });
