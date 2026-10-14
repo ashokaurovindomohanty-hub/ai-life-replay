@@ -1,17 +1,11 @@
-// memory -> movie strip auto-generation
-async function createStripFromMemory(memory) {
-  const strip = {
-    id: `strip_${Date.now()}`,
-    memoryId: memory.id,
-    frames: await generateFrames(memory.text, 4), // 4-frame strip
-    locked: true, // Stripe unlock required
-    createdAt: new Date().toISOString()
-  };
-  await db.strips.save(strip);
-  return strip;
+export type Memory = { id: string; text: string; imageUrl?: string };
+export function createStripFromMemory(memory: Memory) {
+  // TODO: replace with real generateFrames + db logic
+  const frames = [{ text: memory.text, image: memory.imageUrl || "" }];
+  return frames;
 }
-// hook: call on memory create
-db.memories.onCreate(async (memory) => {
-  const strip = await createStripFromMemory(memory);
-  console.log("Strip auto-generated:", strip.id);
-});
+export async function saveStrip(memory: Memory) {
+  // TODO: add db.save(memory) when DB ready
+  console.log("saveStrip", memory.id);
+  return true;
+}
