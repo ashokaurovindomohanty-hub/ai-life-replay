@@ -17,15 +17,18 @@ const updateStreak = () => {
   const [text,setText]=useState("");
   const [mood, setMood] = useState('nostalgic')
   const [result,setResult]=useState<any>(null);
-  const generate=async()=>{
-    const res=await fetch("/api/generate",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({memory:text, mood})
-    });
-    const data=await res.json();
-    setResult(data);
-  };
+const generate=async()=>{
+ const res=await fetch("/api/generate",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({memory:text, mood})
+ });
+ localStorage.setItem('memory', text);
+ localStorage.setItem('mood', mood);
+ window.location.href = '/replay';
+ const data=await res.json();
+ setResult(data);
+};
   const share=()=>{
     if(navigator.share) navigator.share({title:"My Memory",text:result.story});
     else navigator.clipboard.writeText(result.story);
@@ -41,13 +44,17 @@ const updateStreak = () => {
 <div className="text-center text-sm font-semibold text-purple-600">🔥 {streak} Day Streak</div>
   <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Life Replay ✨</h1>
   <p className="mt-3 opacity-70">Turn memories into cinematic movies</p>
-    <textarea placeholder="Describe your memory..." className="w-full p-4 rounded-xl text-white" />
+<div className="text-center py-8">
+ <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Turn memories into movies</h1>
+ <p className="mt-3 text-blue-200/70">Your life, replayed as cinema</p>
+</div>
+    <textarea placeholder="Describe your memory..." className="w-full min-h-[120px] bg-blue-800 border border-blue-400 rounded-xl p-4 text-white placeholder:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400" />
     <div className="flex gap-3 mt-4">
       <button onClick={() => setMood('nostalgic')} className={`px-4 py-2 rounded-full ${mood==='nostalgic' ? 'bg-blue-600' : 'bg-white/20'}`}>Nostalgic</button>
       <button onClick={() => setMood('joyful')} className={`px-4 py-2 rounded-full ${mood==='joyful' ? 'bg-blue-600' : 'bg-white/20'}`}>Joyful</button>
       <button onClick={() => setMood('epic')} className={`px-4 py-2 rounded-full ${mood==='epic' ? 'bg-blue-600' : 'bg-white/20'}`}>Epic</button>
     </div>
-<input ref={fileInputRef} type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full p-3 rounded-xl border-2 border-violet-400 shadow-lg bg-white text-slate-800" />
+<input ref={fileInputRef} type="file" accept="image/*" multiple onChange={(e)=>setFiles(prev=>[...prev, ...Array.from(e.target.files||[])])} className="w-full mt-4 bg-blue-800 border border-blue-400 rounded-xl p-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-600 file:text-white" />
 {files.length > 0 && (
   <div className="mt-3">
     <div className="flex flex-wrap gap-2">
@@ -104,4 +111,3 @@ const updateStreak = () => {
   </div>
 );
 }
-
