@@ -1,5 +1,6 @@
 "use client";
-import { createStripFromMemory } from "@/lib/stripGenerator"import { useEffect, useState } from "react";
+import { createStripFromMemory } from "@/lib/stripGenerator";
+import { useEffect, useState } from "react";
 import TimelineCanvas from "../../src/components/TimelineCanvas";
 import { initialPhases } from "../../lib/phases";
 export default function Replay(){
