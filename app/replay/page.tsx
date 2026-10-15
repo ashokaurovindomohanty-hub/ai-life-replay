@@ -1,5 +1,5 @@
 "use client";
-import { createStripFromMemory } from "@/lib/stripGenerator";
+import SoulStats from "@/src/components/SoulStats";import { createStripFromMemory } from "@/lib/stripGenerator";
 import { useEffect, useState } from "react";
 import TimelineCanvas from "../../src/components/TimelineCanvas";
 import { initialPhases } from "../../lib/phases";
@@ -27,6 +27,7 @@ export default function Replay(){
 <style>{`@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}} @keyframes twinkle{0%,100%{opacity:1}50%{opacity:0.3}} h1{position:relative} h1::after{content:'✦ ✧ ✦'; position:absolute; top:-8px; right:20%; font-size:10px; animation:twinkle 1s infinite}`}</style>
    <p className="text-center text-blue-200 mt-2">{memory}</p>
    <TimelineCanvas phases={initialPhases} />
+<SoulStats />
   </main>
  )
 }
