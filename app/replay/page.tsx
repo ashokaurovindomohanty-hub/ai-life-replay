@@ -1,4 +1,5 @@
 "use client";
+import CinemaTimeline from "@/src/components/CinemaTimeline";
 import SoulStats from "@/src/components/SoulStats";import { createStripFromMemory } from "@/lib/stripGenerator";
 import { useEffect, useState } from "react";
 import TimelineCanvas from "../../src/components/TimelineCanvas";
@@ -28,6 +29,7 @@ export default function Replay(){
    <p className="text-center text-blue-200 mt-2">{memory}</p>
    <TimelineCanvas phases={initialPhases} />
 <SoulStats />
+<CinemaTimeline />
   </main>
  )
 }
