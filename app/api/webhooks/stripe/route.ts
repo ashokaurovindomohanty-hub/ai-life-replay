@@ -1,3 +1,4 @@
+import { markPaid } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     const memoryId = (session.metadata as any)?.memoryId;
-    console.log("PAID unlock for", memoryId);
+if (memoryId) await markPaid(memoryId);
     // TODO: mark memoryId as paid in DB
   }
   return NextResponse.json({ received: true });
