@@ -3,16 +3,19 @@ import { createStripFromMemory } from "@/lib/stripGenerator";
 import { useEffect, useState } from "react";
 import TimelineCanvas from "../../src/components/TimelineCanvas";
 import { initialPhases } from "../../lib/phases";
-export default function Replay(){
-const [memory,setMemory]=useState("");
-const [paid,setPaid]=useState(false);
-const memoryId = localStorage.getItem('memoryId') || ""; // add this line
-useEffect(()=>{ setMemory(localStorage.getItem('memory')||"") },[]);
-useEffect(()=>{
-  if(!memoryId) return;
-  fetch(`/api/replay/status?memoryId=${memoryId}`).then(r=>r.json()).then(d=>setPaid(d.paid));
-},[memoryId]);
- return (
+export default function Replay(){ 
+  const [memory,setMemory]=useState(""); 
+  const [paid,setPaid]=useState(false); 
+  const [memoryId,setMemoryId]=useState("");
+  useEffect(()=>{ 
+    setMemory(localStorage.getItem('memory')||"");
+    setMemoryId(localStorage.getItem('memoryId')||"");
+  },[]); 
+  useEffect(()=>{ 
+    if(!memoryId) return; 
+    fetch(`/api/replay/status?memoryId=${memoryId}`).then(r=>r.json()).then(d=>setPaid(d.paid)); 
+  },[memoryId]); 
+  return (
   <main className="min-h-screen bg-black text-white p-6">
 <h1 className="text-xl sm:text-3xl md:text-5xl font-black text-center whitespace-nowrap tracking-[0.2em] bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(168,85,247,0.6)] animate-pulse">
 ✨ AI-LIFE-REPLAY ✨
