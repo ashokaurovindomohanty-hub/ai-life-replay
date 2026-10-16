@@ -33,7 +33,7 @@ export default function Replay(){
 <SoulStats />
 <CinemaTimeline />
 <VoiceReplay text={memory} />
-<ShareCard image={firstImage} title="My Life Replay" />
+<ShareCard image={memory?.image || phasedImages?.[0] || ""} title="My Life Replay" />
   </main>
  )
 }
