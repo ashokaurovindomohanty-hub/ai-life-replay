@@ -1,4 +1,5 @@
 "use client";
+import ReplayHistory from "@/src/components/ReplayHistory";
 import AIReflection from "@/src/components/AIReflection";
 import DownloadReplay from "@/src/components/DownloadReplay";
 import ShareCard from "@/src/components/ShareCard";
@@ -41,6 +42,7 @@ export default function Replay(){
 </div>
 <DownloadReplay />
 <AIReflection memory={typeof memory === 'string' ? memory : ""} />
+<ReplayHistory />
   </main>
  )
 }
