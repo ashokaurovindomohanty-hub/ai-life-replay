@@ -1,4 +1,5 @@
 "use client";
+import ShareCard from "@/src/components/ShareCard";
 import VoiceReplay from "@/src/components/VoiceReplay";
 import CinemaTimeline from "@/src/components/CinemaTimeline";
 import SoulStats from "@/src/components/SoulStats";import { createStripFromMemory } from "@/lib/stripGenerator";
@@ -32,6 +33,7 @@ export default function Replay(){
 <SoulStats />
 <CinemaTimeline />
 <VoiceReplay text={memory} />
+<ShareCard image={firstImage} title="My Life Replay" />
   </main>
  )
 }
