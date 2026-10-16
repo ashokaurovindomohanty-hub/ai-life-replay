@@ -1,4 +1,5 @@
 "use client";
+import ReplayFade from "@/src/components/ReplayFade";
 import ReplayHistory from "@/src/components/ReplayHistory";
 import AIReflection from "@/src/components/AIReflection";
 import DownloadReplay from "@/src/components/DownloadReplay";
@@ -43,6 +44,9 @@ export default function Replay(){
 <DownloadReplay />
 <AIReflection memory={typeof memory === 'string' ? memory : ""} />
 <ReplayHistory />
+<ReplayFade>
+  {/* existing replay content */}
+</ReplayFade>
   </main>
  )
 }
