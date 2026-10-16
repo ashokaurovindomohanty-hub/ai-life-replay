@@ -45,7 +45,12 @@ export default function Replay(){
 <AIReflection memory={typeof memory === 'string' ? memory : ""} />
 <ReplayHistory />
 <ReplayFade>
-  {/* existing replay content */}
+  <div id="replay-card">
+    <ShareCard image={""} title="My Life Replay" />
+  </div>
+  <DownloadReplay />
+  <AIReflection memory={typeof memory === 'string' ? memory : ""} />
+  <ReplayHistory />
 </ReplayFade>
   </main>
  )
