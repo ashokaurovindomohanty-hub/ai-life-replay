@@ -1,4 +1,5 @@
 "use client";
+import DownloadReplay from "@/src/components/DownloadReplay";
 import ShareCard from "@/src/components/ShareCard";
 import VoiceReplay from "@/src/components/VoiceReplay";
 import CinemaTimeline from "@/src/components/CinemaTimeline";
@@ -34,6 +35,10 @@ export default function Replay(){
 <CinemaTimeline />
 <VoiceReplay text={memory} />
 <ShareCard image={""} title="My Life Replay" />
+<div id="replay-card">
+  <ShareCard image={""} title="My Life Replay" />
+</div>
+<DownloadReplay />
   </main>
  )
 }
