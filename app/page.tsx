@@ -40,6 +40,19 @@ const generate=async()=>{
   else alert(data.error || "Stripe error");
   };
   return (
+<section className="text-center py-20">
+  <h1 className="text-5xl font-bold">AI Life Replay</h1>
+  <p className="text-white/60 mt-4">Relive your memories in cinema mode</p>
+  <a href="/replay" className="mt-6 inline-block bg-white text-black px-6 py-3 rounded-full">Start Replay</a>
+</section>
+<section className="grid grid-cols-3 gap-4 mt-10">
+  <div className="p-6 rounded-xl bg-white/5">🎬 Cinema Timeline</div>
+  <div className="p-6 rounded-xl bg-white/5">🤖 AI Reflection</div>
+  <div className="p-6 rounded-xl bg-white/5">🔊 Voice Replay</div>
+</section>
+<footer className="text-center text-white/40 py-10 text-sm">
+  Built with Next.js & AI • ai-life-replay
+</footer>
 <div className="min-h-screen bg-gradient-to-b from-slate-950 to-black text-white flex flex-col items-center p-8">
 <div className="text-center text-sm font-semibold text-purple-600">🔥 {streak} Day Streak</div>
   <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Life Replay ✨</h1>
